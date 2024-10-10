@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @Service
-@RequiredArgsConstructor
+
 public class BookService {
 
-    private List<Book> books;
 
 
 
     private final BookRepository bookRepository;
+
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public List<Book> getAllBooks() {
         return bookRepository.findAll();

@@ -52,6 +52,13 @@ public class Book {
 
     }
 
+    public Book(String title) {
+        this.title = title;
+
+
+
+    }
+
     public static Book newBook (String title, String author, String description, boolean isRead, int year) {
         return new Book();
     }

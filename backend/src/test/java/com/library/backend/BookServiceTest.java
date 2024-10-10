@@ -29,19 +29,19 @@ public class BookServiceTest {
 
     @Test
     public void testGetAllBooks() {
-        Book book1 = new Book();
+        Book book1 = new Book("To kill a Mockingbird");
         when(bookRepository.findAll()).thenReturn(List.of(book1));
 
         List<Book> books = bookService.getAllBooks();
         assertEquals(1, books.size());
-        assertEquals("To Kill a Mockingbird", books.get(0).getTitle());
+        assertEquals("To kill a Mockingbird", books.get(0).getTitle());
     }
 
 
 
     @Test
     public void testGetBookById() {
-        Book book = new Book();
+        Book book = new Book("The Great Gatsby");
         when(bookRepository.findById("1")).thenReturn(Optional.of(book));
 
         Optional<Book> foundBook = bookService.getBookById("1");
