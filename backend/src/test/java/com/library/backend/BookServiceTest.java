@@ -10,8 +10,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 import java.util.Optional;
-
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -31,26 +29,19 @@ public class BookServiceTest {
 
     @Test
     public void testGetAllBooks() {
-        Book book = new Book("To Kill a Mockingbird", "Harper Lee",1960);
-        when(bookRepository.findAll()).thenReturn(List.of(book));
+        Book book1 = new Book();
+        when(bookRepository.findAll()).thenReturn(List.of(book1));
 
         List<Book> books = bookService.getAllBooks();
         assertEquals(1, books.size());
         assertEquals("To Kill a Mockingbird", books.get(0).getTitle());
     }
 
-   /* @Test
-    public void testAddBook() {
-        Book book = new Book("The Secret Garden", " Charles Robinson",1911);
-        when(bookRepository.save(any(Book.class))).thenReturn(book);
 
-        Book savedBook = bookService.addBook(book);
-        assertEquals("The Secret Garden", savedBook.getTitle());
-    }*/
 
     @Test
     public void testGetBookById() {
-        Book book = new Book("The Great Gatsby", "F. Scott Fitzgerald",1922 );
+        Book book = new Book();
         when(bookRepository.findById("1")).thenReturn(Optional.of(book));
 
         Optional<Book> foundBook = bookService.getBookById("1");

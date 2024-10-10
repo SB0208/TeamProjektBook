@@ -4,34 +4,42 @@ package com.library.backend.controller;
 import com.library.backend.model.Book;
 import com.library.backend.service.BookService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
 
+@RestController
 public class BookController {
 
+    @Autowired
+    private BookService bookService;
 
-    private final BookService bookService;
+
+
 
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    public List<Book> getAllBooks()
+    {
+        List<Book> allBooks = bookService.getAllBooks();
+        return allBooks;
     }
+
 
     @GetMapping("/{id}")
-    public Optional<Book> getBookById(@PathVariable String id) {
-        return bookService.getBookById(id);
-    }
-
-    @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return bookService.addBook(book);
+    public Optional<Book> getBookById(@PathVariable String id)
+    {
+        Optional<Book> bookById = bookService.getBookById(id);
+        return bookById;
     }
 
     @PutMapping("/{id}")
@@ -43,4 +51,16 @@ public class BookController {
     public void deleteBook(@PathVariable String id) {
         bookService.deleteBook(id);
     }
+
+    @PostMapping()
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        Book savedBook = bookService.addBook(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
+    }
+
+
+
+
+
+
 }
